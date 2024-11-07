@@ -1,0 +1,93 @@
+﻿@using WeatherForecastRB.ViewModels
+@using WeatherForecastRB.Models
+@model IndexViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Погода в областных центрах Беларуси с 2009 г. по 2024 г.</h1>
+</div>
+<br>
+    <form method="post">
+        <div class="row">
+            <div class="col">
+            <label class="label" for="city">Выберите город:</label>
+            <select class="select" id="city" name="city">
+                <option value="brest_belarus">Брест</option>
+                <option value="vitebsk">Витебск</option>
+                <option value="gomel">Гомель</option>
+                <option value="grodno">Гродно</option>
+                <option value="minsk">Минск</option>
+                <option value="mogilev">Могилёв</option>
+            </select>
+            </div>
+            <div class="col">
+            <label class="label" for="month">Выберите месяц:</label>
+            <select class="select" id="month" name="month">
+                <option value="january">Январь</option>
+                <option value="february">Февраль</option>
+                <option value="march">Март</option>
+                <option value="april">Апрель</option>
+                <option value="may">Май</option>
+                <option value="june">Июнь</option>
+                <option value="july">Июль</option>
+                <option value="august">Август</option>
+                <option value="september">Сентябрь</option>
+                <option value="october">Октябрь</option>
+                <option value="november">Ноябрь</option>
+                <option value="december">Декабрь</option>
+            </select>
+        </div>
+            <div class="col">
+            <label class="label" for="year">Выберите год:</label>
+            <select class="select" id="year" name="year">
+                <option value="2009">2009</option>
+                <option value="2010">2010</option>
+                <option value="2011">2011</option>
+                <option value="2012">2012</option>
+                <option value="2013">2013</option>
+                <option value="2014">2014</option>
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+            </select>
+        </div>
+            <div class="col">
+                <input class="input" type="submit" value="Искать" />
+        </div>
+            @if (ViewData["SelectedYear"] != null && ViewData["SelectedMonth"] != null && ViewData["SelectedYear"] != null)
+            {
+                <script type="text/javascript">
+                    $(function () {
+                        $(this).find("#city").val('@ViewData["SelectedCity"]');
+                        $(this).find("#month").val('@ViewData["SelectedMonth"]');
+                        $(this).find("#year").val('@ViewData["SelectedYear"]');
+                    });
+                </script>
+            }
+            </div>
+    </form>
+    <br>
+    <table class="table">
+        <thead>
+            <tr><td>Дата</td><td>Температура днём</td><td>Температура ночью</td><td>Давление</td><td>Влажность</td></tr>
+            </thead>
+        <tbody>
+        @foreach (Day day in Model.Days)
+        {
+            <tr><td>@day.Date</td><td>@day.Temperature_Day °С</td><td>@day.Temperature_Night °С</td><td>@day.Preasure мм рт. ст.</td><td>@day.Humidity %</td></tr>
+        }
+        </tbody>
+        <tfoot>
+        <tr><td>@Model.month_av_data.Text</td><td>@Model.month_av_data.Average_Temperature_Day °С</td><td>@Model.month_av_data.Average_Temperature_Night °С</td><td>@Model.month_av_data.Average_Preasure мм рт. ст.</td><td>@Model.month_av_data.Average_Humidity %</td></tr>
+        </tfoot>
+    </table>
