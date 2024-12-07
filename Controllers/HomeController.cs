@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WeatherForecastRB.Models;
 using WeatherForecastRB.ViewModels;
+using System;
 
 namespace WeatherForecastRB.Controllers
 {
@@ -28,7 +29,7 @@ namespace WeatherForecastRB.Controllers
             var days = new List<Day>();
 
             int day_count;
-            if ((year == "2024" && month == "november") || (year == "2024" && month == "december")) { day_count = -1; }
+            if (year == "2024" && month == "december") { day_count = DateTime.Now.Day - 1; }
             else if (month == "february" && Convert.ToInt32(year) % 4 == 0) { day_count = 29; }
             else if (month == "february") { day_count = 28; }
             else if (month == "april" || month == "june" || month == "september" || month == "november") { day_count = 30; }
